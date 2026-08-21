@@ -16,16 +16,22 @@ const base = isGithubPages
   ? process.env["GITHUB_PAGES_BASE"] || "/nommys-signature-style-0ed5fddd/"
   : "/";
 
+// Lovable's own build runs on a server runtime that serves routes on demand, so
+// prerendering there is unnecessary (and its crawler fails against that bundle).
+// Static hosts (GitHub Pages, Netlify, Vercel static) still get prerendered HTML.
+const isLovableBuild =
+  process.env["LOVABLE_SANDBOX"] === "1" || !!process.env["DEV_SERVER__PROJECT_PATH"];
+const prerender = !isLovableBuild;
 
 export default defineConfig({
   // Static HTML for hosts that only serve files (Netlify, Vercel static, GitHub Pages).
   // Without prerender, `dist/client` has no index.html and paths 404.
   tanstackStart: {
     prerender: {
-      enabled: true,
+      enabled: prerender,
       autoSubfolderIndex: true,
-      autoStaticPathsDiscovery: true,
-      crawlLinks: true,
+      autoStaticPathsDiscovery: prerender,
+      crawlLinks: prerender,
     },
   },
   // GitHub Pages is static-only: skip the server/deploy bundler so the build
@@ -35,5 +41,6 @@ export default defineConfig({
     base,
   },
 });
+
 
 
