@@ -6,8 +6,15 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// GitHub Pages serves the site from a subpath (https://<user>.github.io/<repo>/),
+// so assets must be built with that base. Set GITHUB_PAGES=true in CI only —
+// Lovable hosting / custom domains keep serving from "/".
+const base = process.env.GITHUB_PAGES
+  ? process.env.GITHUB_PAGES_BASE || "/nommys-signature-style-0ed5fddd/"
+  : "/";
+
 export default defineConfig({
-  // Static HTML for hosts that only serve files (Netlify, Vercel static).
+  // Static HTML for hosts that only serve files (Netlify, Vercel static, GitHub Pages).
   // Without prerender, `dist/client` has no index.html and paths 404.
   tanstackStart: {
     prerender: {
@@ -17,4 +24,8 @@ export default defineConfig({
       crawlLinks: true,
     },
   },
+  vite: {
+    base,
+  },
 });
+
