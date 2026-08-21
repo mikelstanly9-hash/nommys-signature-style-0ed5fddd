@@ -47,9 +47,9 @@ function ProductMissing() {
 function ProductDetail() {
   const { product } = Route.useLoaderData();
   const { addToCart, wishlist, toggleWishlist } = useShop();
-  const [size, setSize] = useState(product.sizes[0]);
-  const [color, setColor] = useState(product.colors[0].name);
-  const [image, setImage] = useState(product.images[0]);
+  const [size, setSize] = useState(product.sizes[0] ?? "One Size");
+  const [color, setColor] = useState(product.colors[0]?.name ?? "Default");
+  const [image, setImage] = useState(product.images[0] ?? "");
   const [added, setAdded] = useState(false);
   const liked = wishlist.includes(product.id);
 

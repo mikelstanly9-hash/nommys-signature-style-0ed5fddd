@@ -80,8 +80,8 @@ function Admin() {
             <div className="border border-border p-6">
               <p className="font-mono">{lastOrder.ref}</p>
               <p className="mt-1 text-xs text-muted-foreground">
-                {lastOrder.customer.name} · {lastOrder.customer.phone} ·{" "}
-                {lastOrder.customer.deliveryZone === "lagos" ? "Lagos delivery" : "Nationwide delivery"}
+                {lastOrder.customer["name"]} · {lastOrder.customer["phone"]} ·{" "}
+                {lastOrder.customer["deliveryZone"] === "lagos" ? "Lagos delivery" : "Nationwide delivery"}
               </p>
               <ul className="mt-4 space-y-1 text-xs">
                 {lastOrder.lines.map((l) => (
