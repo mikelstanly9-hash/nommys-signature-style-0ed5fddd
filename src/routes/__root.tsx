@@ -11,6 +11,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { ShopProvider } from "@/lib/shop-context";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
+import { WhatsAppFab } from "@/components/site/WhatsAppFab";
 
 function NotFoundComponent() {
   return (
@@ -77,14 +81,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Nommy’s Signature — Style That Speaks For You" },
+      {
+        name: "description",
+        content:
+          "Nommy’s Signature — a Lagos clothing brand offering wholesale and retail fashion with nationwide delivery.",
+      },
+      { name: "author", content: "Nommy’s Signature" },
+      { property: "og:title", content: "Nommy’s Signature" },
+      {
+        property: "og:description",
+        content: "Wholesale & retail clothing from Balogun, Lagos Island.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
