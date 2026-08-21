@@ -11,10 +11,11 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 // must be generated with that base and without the server deploy plugin.
 // GITHUB_PAGES=true is only set in the GitHub Actions workflow — Lovable hosting,
 // Netlify and Vercel keep building from "/" as before.
-const isGithubPages = !!process.env.GITHUB_PAGES;
+const isGithubPages = !!process.env["GITHUB_PAGES"];
 const base = isGithubPages
-  ? process.env.GITHUB_PAGES_BASE || "/nommys-signature-style-0ed5fddd/"
+  ? process.env["GITHUB_PAGES_BASE"] || "/nommys-signature-style-0ed5fddd/"
   : "/";
+
 
 export default defineConfig({
   // Static HTML for hosts that only serve files (Netlify, Vercel static, GitHub Pages).
