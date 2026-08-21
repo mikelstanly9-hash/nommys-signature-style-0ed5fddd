@@ -6,10 +6,13 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// GitHub Pages serves the site from a subpath (https://<user>.github.io/<repo>/),
-// so assets must be built with that base. Set GITHUB_PAGES=true in CI only —
-// Lovable hosting / custom domains keep serving from "/".
-const base = process.env.GITHUB_PAGES
+// GitHub Pages serves this project from a subpath
+// (https://<user>.github.io/nommys-signature-style-0ed5fddd/), so the static build
+// must be generated with that base and without the server deploy plugin.
+// GITHUB_PAGES=true is only set in the GitHub Actions workflow — Lovable hosting,
+// Netlify and Vercel keep building from "/" as before.
+const isGithubPages = !!process.env.GITHUB_PAGES;
+const base = isGithubPages
   ? process.env.GITHUB_PAGES_BASE || "/nommys-signature-style-0ed5fddd/"
   : "/";
 
@@ -24,8 +27,12 @@ export default defineConfig({
       crawlLinks: true,
     },
   },
+  // GitHub Pages is static-only: skip the server/deploy bundler so the build
+  // emits plain prerendered HTML + assets into dist/client.
+  ...(isGithubPages ? { nitro: false as const } : {}),
   vite: {
     base,
   },
 });
+
 
